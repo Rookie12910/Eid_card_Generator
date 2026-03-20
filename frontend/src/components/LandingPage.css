@@ -1,0 +1,187 @@
+@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap');
+
+.landing-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse at top, #1a1a4e 0%, #0d0d2b 50%, #050510 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.landing-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23fbbf24' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+.floating-stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.star {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #fbbf24;
+  border-radius: 50%;
+  animation: twinkle 3s infinite ease-in-out;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.5); }
+}
+
+.landing-content {
+  text-align: center;
+  z-index: 10;
+  padding: 3rem;
+  max-width: 700px;
+  animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.crescent-icon {
+  font-size: 6rem;
+  margin-bottom: 1rem;
+  animation: glow 3s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from { filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.3)); }
+  to { filter: drop-shadow(0 0 25px rgba(251, 191, 36, 0.7)); }
+}
+
+.landing-title {
+  font-family: 'Kalpurush', 'Hind Siliguri', sans-serif;
+  font-size: 5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 30%, #fcd34d 60%, #fbbf24 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s ease-in-out infinite;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+@keyframes shimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.landing-subtitle {
+  font-family: 'Kalpurush', 'Hind Siliguri', sans-serif;
+  font-size: 1.3rem;
+  color: #cbd5e1;
+  line-height: 2;
+  margin-bottom: 3rem;
+  max-width: 550px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.landing-cta {
+  font-family: 'Kalpurush', 'Hind Siliguri', sans-serif;
+  font-size: 1.4rem;
+  padding: 1.2rem 3rem;
+  background: linear-gradient(135deg, #fbbf24, #d97706);
+  color: #1a1a4e;
+  font-weight: 700;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 30px rgba(251, 191, 36, 0.3);
+  letter-spacing: 1px;
+}
+
+.landing-cta:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 0 50px rgba(251, 191, 36, 0.6);
+}
+
+.lantern {
+  position: absolute;
+  font-size: 4rem;
+  animation: sway 4s ease-in-out infinite;
+}
+
+.lantern-left {
+  top: 8%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.lantern-right {
+  top: 12%;
+  right: 10%;
+  animation-delay: 2s;
+}
+
+@keyframes sway {
+  0%, 100% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+}
+
+/* ====================== Stats ====================== */
+.live-stats {
+  margin-top: 2rem;
+  font-size: 1.1rem;
+  color: #94a3b8;
+  font-weight: 500;
+  animation: fadeIn 1s ease 0.5s both;
+}
+
+.stats-number {
+  color: #fbbf24;
+  font-weight: 700;
+  font-size: 1.3rem;
+}
+
+/* ====================== Mobile Responsive ====================== */
+@media (max-width: 700px) {
+  .landing-title {
+    font-size: 3rem;
+  }
+
+  .landing-subtitle {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    padding: 0 1rem;
+  }
+
+  .landing-cta {
+    font-size: 1.1rem;
+    padding: 1rem 2rem;
+  }
+
+  .crescent-icon {
+    font-size: 4rem;
+  }
+
+  .lantern {
+    font-size: 2.5rem;
+  }
+
+  .landing-content {
+    padding: 1.5rem;
+  }
+}
