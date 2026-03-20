@@ -7,7 +7,10 @@ import api
 from database import engine
 
 # Create the SQLite tables
-models.Base.metadata.create_all(bind=engine)
+try:
+    models.Base.metadata.create_all(bind=engine)
+except Exception as e:
+    print(f"Skipping database creation: {e}")
 
 app = FastAPI(docs_url="/api/docs", openapi_url="/api/openapi.json")
 
@@ -22,9 +25,12 @@ app.add_middleware(
 
 # Securely mount static files directory (for images/fonts)
 static_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "static")
-if not os.path.exists(static_path):
-    os.makedirs(static_path)
-app.mount("/static", StaticFiles(directory=static_path), name="static")
+try:
+    if not os.path.exists(static_path):
+        os.makedirs(static_path)
+    app.mount("/static", StaticFiles(directory=static_path), name="static")
+except Exception as e:
+    print(f"Skipping static files mount on read-only system: {e}")
 
 # Expose API endpoints
 app.include_router(api.router)
