@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './LandingPage.css';
 
 interface LandingPageProps {
@@ -6,17 +6,6 @@ interface LandingPageProps {
 }
 
 const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
-  const [totalCards, setTotalCards] = useState<number | null>(null);
-
-  useEffect(() => {
-    fetch('/api/stats')
-      .then(res => {
-        if (!res.ok) throw new Error('Backend unavailable');
-        return res.json();
-      })
-      .then(data => setTotalCards(data.total_generated))
-      .catch(() => setTotalCards(null)); // Silently hide stats if backend is down
-  }, []);
 
   return (
     <div className="landing-container">
@@ -39,11 +28,6 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
         <button className="landing-cta" onClick={onStart}>
           ✨ কার্ড তৈরি শুরু করুন ✨
         </button>
-        {totalCards !== null && (
-          <div className="live-stats">
-            <span className="stats-number">{totalCards}</span> টি কার্ড এ পর্যন্ত তৈরি হয়েছে!
-          </div>
-        )}
       </div>
     </div>
   );
