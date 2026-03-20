@@ -5,7 +5,11 @@ from sqlalchemy.orm import sessionmaker
 import os
 
 # Use PostgreSQL if DATABASE_URL is provided (e.g. on Vercel), else fallback to SQLite
-SQLALCHEMY_DATABASE_URL = os.environ.get("DATABASE_URL", "sqlite:///./sqlite.db")
+# Also check if we are on Vercel so we can use /tmp because default directory is read-only
+is_vercel = os.environ.get("VERCEL") == "1"
+fallback_db = "/tmp/sqlite.db" if is_vercel else "./sqlite.db"
+
+SQLALCHEMY_DATABASE_URL = os.environ.get("DATABASE_URL", f"sqlite:///{fallback_db}")
 
 # Fix for some SQLAlchemy versions with Vercel Postgres wrapper
 if SQLALCHEMY_DATABASE_URL.startswith("postgres://"):

@@ -37,15 +37,21 @@ class RecordGenerationRequest(BaseModel):
 @router.get("/templates", response_model=List[TemplateResponse])
 def get_templates(db: Session = Depends(get_db)):
     """ Returns a list of all available card templates. """
-    templates = db.query(models.CardTemplate).all()
+    try:
+        templates = db.query(models.CardTemplate).all()
+    except Exception:
+        templates = []
     
-    # Auto-populate the database with our 5 templates if it is empty
+    # Auto-populate the database with our 6 templates if it is empty
     if not templates:
-        for i in range(1, 6):
-            new_template = models.CardTemplate(id=i, image_url=f"/static/templates/template_{i}.png")
-            db.add(new_template)
+        for i in range(1, 7):
+            new_template = models.CardTemplate(id=i, image_url=f"/templates/template_{i}.png")
             templates.append(new_template)
-        db.commit()
+            db.add(new_template)
+        try:
+            db.commit()
+        except Exception:
+            db.rollback()
         
     return templates
 

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import LandingPage from './components/LandingPage'
 import CardEditor from './components/CardEditor'
 import './index.css'
+import { Analytics } from '@vercel/analytics/react';
 
 function App() {
   const [showEditor, setShowEditor] = useState(false)
@@ -13,6 +14,7 @@ function App() {
       ) : (
         <LandingPage onStart={() => setShowEditor(true)} />
       )}
+      <Analytics />
     </>
   )
 }
