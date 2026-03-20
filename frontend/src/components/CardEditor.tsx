@@ -88,14 +88,20 @@ const CardEditor: React.FC<CardEditorProps> = ({ onBack }) => {
   const [generatedUrl, setGeneratedUrl] = useState<string | null>(null);
   const [showThankYou, setShowThankYou] = useState(false);
 
+// Hardcoded templates so the app works even without the backend
+const STATIC_TEMPLATES: Template[] = [
+  { id: 1, image_url: '/templates/template_1.png' },
+  { id: 2, image_url: '/templates/template_2.png' },
+  { id: 3, image_url: '/templates/template_3.png' },
+  { id: 4, image_url: '/templates/template_4.png' },
+  { id: 5, image_url: '/templates/template_5.png' },
+  { id: 6, image_url: '/templates/template_6.png' },
+];
+
   useEffect(() => {
-    fetch('/api/templates')
-      .then(res => res.json())
-      .then(data => {
-        setTemplates(data);
-        if (data.length > 0) setSelectedTemplate(data[0]);
-      })
-      .catch(err => console.error("Error fetching templates:", err));
+    // Use hardcoded templates immediately
+    setTemplates(STATIC_TEMPLATES);
+    setSelectedTemplate(STATIC_TEMPLATES[0]);
   }, []);
 
   const getZone = (): TextZone => {

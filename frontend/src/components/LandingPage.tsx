@@ -10,9 +10,12 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
 
   useEffect(() => {
     fetch('/api/stats')
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) throw new Error('Backend unavailable');
+        return res.json();
+      })
       .then(data => setTotalCards(data.total_generated))
-      .catch(err => console.error(err));
+      .catch(() => setTotalCards(null)); // Silently hide stats if backend is down
   }, []);
 
   return (
