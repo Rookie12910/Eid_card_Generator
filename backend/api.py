@@ -5,7 +5,6 @@ from typing import List
 
 import models
 import database
-import utils
 
 router = APIRouter(prefix="/api")
 
@@ -44,14 +43,22 @@ def get_templates(db: Session = Depends(get_db)):
     
     # Auto-populate the database with our 6 templates if it is empty
     if not templates:
+        fallback_templates = []
         for i in range(1, 7):
-            new_template = models.CardTemplate(id=i, image_url=f"/templates/template_{i}.png")
-            templates.append(new_template)
-            db.add(new_template)
+            url = f"/templates/template_{i}.png"
+            fallback_templates.append({"id": i, "image_url": url})
+            try:
+                new_template = models.CardTemplate(id=i, image_url=url)
+                db.add(new_template)
+            except Exception:
+                pass
+                
         try:
             db.commit()
+            return db.query(models.CardTemplate).all() # successfully persisted
         except Exception:
             db.rollback()
+            return fallback_templates # Safely return dicts instead of detached sql objects
         
     return templates
 

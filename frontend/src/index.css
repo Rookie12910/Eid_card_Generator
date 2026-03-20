@@ -4,6 +4,13 @@
   box-sizing: border-box;
 }
 
+@font-face {
+  font-family: 'Kalpurush';
+  src: url('/fonts/kalpurush.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 html, body, #root {
   width: 100%;
   min-height: 100vh;
